@@ -1,0 +1,40 @@
+install.packages("fixest")   # run once
+library(fixest)
+library(readr)
+
+df <- read_csv("merged_dfs/merged_18_19_21.csv")
+
+model_fe <- feols(bmi ~ yam_suitability | enns_year,
+                data = df)
+summary(model_fe)
+
+model_simple <- feols(bmi ~ yam_suitability + ube_price_1kg,
+                      data = df)
+summary(model_simple)
+
+model <- feols(bmi ~ yam_suitability + ube_price_1kg + yam_suitability:ube_price_1kg,
+               data = df,
+               cluster = ~provhuc)
+summary(model)
+
+model_weighted <- feols(bmi ~ yam_suitability * ube_price_1kg,
+               data = df,
+               weights = ~fwgti_prov)
+
+summary(model_weighted)
+
+
+
+### FOR LATER: SAVE
+# Or save as HTML (viewable in browser)
+fixest::esttable(model, file = "model_results.html", view = TRUE)
+
+fixest::esttex(model, file = "model_results.tex")
+
+fixest::etable(model, file = "model_results.html")
+
+# HTML table with regression formatting
+fixest::etable(model, file = "model_table.html", tex = TRUE)
+
+# then open it
+browseURL("model_table.html")

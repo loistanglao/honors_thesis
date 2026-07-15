@@ -7,11 +7,7 @@ spatial analysis.
 
 Usage
 -----
-    python nns_pipeline.py \
-        --nns_file      data/raw/nns_18_19_21/your_data_file.csv \
-        --dict_file     nns_2019/your_data_dictionary.csv \
-        --shapefile     ne_10m_admin_1_states_provinces/ne_10m_admin_1_states_provinces.shp \
-        --output        final_data.csv
+    python code/nns_pipeline.py --nns_file "data/raw/nns/nns_18_19_21/Beatrix Eloise_Tanglao_2026-03-24055951_data-set_anthrop.csv" --dict_file "data/raw/nns/nns_18_19_21/Beatrix Eloise_Tanglao_2026-03-24055951_data-dictionary_anthrop.csv" --shapefile "data/raw/ne_10m_admin_1_states_provinces/ne_10m_admin_1_states_provinces.shp" --output "data/processed/pipeline_18_19_21.csv"
 
 All four arguments are required.
 """

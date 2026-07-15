@@ -8,7 +8,7 @@ library(data.table)
 
 # ── 1. Loading NNS dataframe ──────────────────────────────────────────────
 # Read raw CSV
-nns_df <- read_csv("nns_analysis/final_data.csv")
+nns_df <- read_csv("data/processed/only_nns_18_19_21_cleaned.csv")
 
 # Get just the province-geometry pairs BEFORE converting to sf
 # This is a tiny dataframe - only unique province rows
@@ -20,7 +20,7 @@ provinces_raw <- nns_df %>%
 nns_provinces <- st_as_sf(provinces_raw, wkt = "geometry", crs = 4326)
 
 # ── 2. Load GAEZ suitability raster ───────────────────────────────────────────
-suit <- rast("nns_analysis/suit_data/DATA_GAEZ-V5_MAPSET_RES05-SXX_GAEZ-V5.RES05-SXX.HP0120.AGERA5.HIST.YAM.LRLM.tif")
+suit <- rast("data/raw/suit_data/DATA_GAEZ-V5_MAPSET_RES05-SXX_GAEZ-V5.RES05-SXX.HP0120.AGERA5.HIST.YAM.LRLM.tif")
 
 # Check CRS match (both should be EPSG:4326)
 crs(suit)
@@ -61,7 +61,7 @@ nns_final <- nns_final %>%
   ))
 
 # save nns_final as a csv
-fwrite(nns_final, "merged_dfs/merged_18_19_21.csv")
+fwrite(nns_final, "data/processed/merged_18_19_21.csv")
 
 # ── 5. Make a new column to average bmi over provhuc ───────────────────────────────────
 
@@ -73,4 +73,4 @@ nns_final_grouped <- nns_final |>
   ungroup()
 
 # save nns_final_grouped as csv
-fwrite(nns_final, "merged_dfs/merged_18_19_21_grouped.csv")
+fwrite(nns_final, "data/processed/merged_18_19_21_grouped_bmi.csv")
